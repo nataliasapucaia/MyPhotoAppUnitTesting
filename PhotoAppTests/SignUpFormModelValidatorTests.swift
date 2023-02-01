@@ -133,4 +133,49 @@ class SignUpFormModelValidatorTests: XCTestCase {
         //Then
         XCTAssertFalse(isFirstNameValid, "The isFirstNameValid() should return FALSE when the name is longer than \(SignUpConstants.lastNameMaxLength) chars")
     }
+
+    // MARK: Email Address Tests
+
+    func testWhenValidEmailProvided_ShouldReturnTrue() {
+        //Given
+        let validEmail = "natisapucaia@gmail.com"
+
+        //When
+        let isValidEmail = sut.isValidEmail(email: validEmail)
+
+        //Then
+        XCTAssertTrue(isValidEmail, "The isValidEmail should return TRUE when the email is valid")
+    }
+
+    func testWhenEmailWithNoAt_ShouldReturnFalse() {
+        //Given
+        let emailWithNoAt = "natisapucauagmail.com"
+        //When
+        let isValidEmail = sut.isValidEmail(email: emailWithNoAt)
+
+        //Then
+        XCTAssertFalse(isValidEmail, "The isValidEmail should return FALSE when @ is missing")
+    }
+
+    func testWhenEmailWithNoDomainProvided_ShouldReturnFalse() {
+        //Given
+        let noDomainEmail = "test@test"
+
+        //When
+        let isValidEmail = sut.isValidEmail(email: noDomainEmail)
+
+        //Then
+        XCTAssertFalse(isValidEmail, "The isValidEmail should return FALSE when domain is missing")
+    }
+
+    func testWhenEmailWithNoProviderProvided_ShouldReturnFalse() {
+        //Given
+        let noProviderEmail = "test@.com"
+
+        //When
+        let isValidEmail = sut.isValidEmail(email: noProviderEmail)
+
+        //Then
+        XCTAssertFalse(isValidEmail, "The isValidEmail should return FALSE when provider email is missing")
+    }
 }
