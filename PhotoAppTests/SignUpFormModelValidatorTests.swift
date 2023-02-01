@@ -178,4 +178,39 @@ class SignUpFormModelValidatorTests: XCTestCase {
         //Then
         XCTAssertFalse(isValidEmail, "The isValidEmail should return FALSE when provider email is missing")
     }
+
+    // MARK: Password tests
+
+    func testWhenPasswordIsValid_ShouldReturnTrue() {
+        //Given
+        let validPassword = "12345678"
+
+        //When
+        let isValidPassword = sut.isValidPassword(password: validPassword)
+
+        //Then
+        XCTAssertTrue(isValidPassword, "The isValidPassword should return TRUE")
+    }
+
+    func testWhenPasswordIsTooShort_ShouldReturnTrue() {
+        //Given
+        let validPassword = "1234567"
+
+        //When
+        let isValidPassword = sut.isValidPassword(password: validPassword)
+
+        //Then
+        XCTAssertFalse(isValidPassword, "The isValidPassword should return FALSE")
+    }
+
+    func testWhenPasswordIsTooLong_ShouldReturnTrue() {
+        //Given
+        let validPassword = "12345678901234567"
+
+        //When
+        let isValidPassword = sut.isValidPassword(password: validPassword)
+
+        //Then
+        XCTAssertFalse(isValidPassword, "The isValidPassword should return FALSE")
+    }
 }

@@ -32,4 +32,14 @@ class SingUpFormModelValidator {
     func isValidEmail(email: String) -> Bool {
         return NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}").evaluate(with: email)
     }
+
+    func isValidPassword(password: String)  -> Bool{
+        var isValidPassword = true
+
+        if password.count < SignUpConstants.passwordMinLength || password.count > SignUpConstants.passwordMaxLength {
+            isValidPassword = false
+        }
+
+        return isValidPassword
+    }
 }
