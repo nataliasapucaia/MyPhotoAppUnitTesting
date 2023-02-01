@@ -6,24 +6,131 @@
 //
 
 import XCTest
+@testable import PhotoApp
 
-class SignupFormValidatorTests: XCTestCase {
+class SignUpFormModelValidatorTests: XCTestCase {
+
+    var sut: SingUpFormModelValidator!
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        sut = SingUpFormModelValidator()
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
     }
+
+    // MARK: First Name Tests
 
     func testWhenValidFirstNameProvided_ShouldReturnTrue() {
         //Given
-        let sut = SingupFormModelValidator()
+        let validName = "Natália"
 
         //When
+        let isFirstNameValid = sut.isFirstNameValid(firstName: validName)
 
         //Then
+        XCTAssertTrue(isFirstNameValid, "The isFirstNameValid() should return TRUE")
     }
 
+    func testWhen2CharsFirstNameProvided_ShouldReturnTrue() {
+        //Given
+        let nameWith2Chars = "Wu"
+
+        //When
+        let isValidName = sut.isFirstNameValid(firstName: nameWith2Chars)
+
+        //Then
+        XCTAssertTrue(isValidName, "The isFirstNameValid() should return TRUE when name has \(SignUpConstants.firstNameMinLength) chars")
+    }
+
+    func testWhen10CharsFirstNameProvided_ShouldReturnTrue() {
+        //Given
+        let nameWith10Chars = "NataliaSap"
+
+        //When
+        let isValidName = sut.isFirstNameValid(firstName: nameWith10Chars)
+
+        //Then
+        XCTAssertTrue(isValidName, "The isFirstNameValid() should return TRUE when name has \(SignUpConstants.firstNameMaxLength) chars")
+    }
+
+    func testWhenTooShortFirstNameProvided_ShouldReturnFalse() {
+        //Given
+        let tooShortName = "A"
+
+        //When
+        let isFirstNameValid = sut.isFirstNameValid(firstName: tooShortName)
+
+        //Then
+        XCTAssertFalse(isFirstNameValid, "The isFirstNameValid() should return FALSE when the name is shorter than \(SignUpConstants.firstNameMinLength) chars")
+    }
+
+    func testWhenTooLongNameProvided_ShouldReturnFalse() {
+        //Given
+        let tooLongName = "NataliaNatalia"
+
+        //When
+        let isFirstNameValid = sut.isFirstNameValid(firstName: tooLongName)
+
+        //Then
+        XCTAssertFalse(isFirstNameValid, "The isFirstNameValid() should return FALSE when the name is longer than \(SignUpConstants.firstNameMaxLength) chars")
+    }
+
+    // MARK: Last Name Tests
+
+    func testWhenValidLastNameProvided_ShouldReturnTrue() {
+        //Given
+        let validLastName = "Sapucaia"
+
+        //When
+        let isFirstNameValid = sut.isLastNameValid(lastName: validLastName)
+
+        //Then
+        XCTAssertTrue(isFirstNameValid, "The isFirstNameValid() should return TRUE")
+    }
+
+    func testWhen2CharsLastNameProvided_ShouldReturnTrue() {
+        //Given
+        let nameWith2Chars = "Wu"
+
+        //When
+        let isValidName = sut.isLastNameValid(lastName: nameWith2Chars)
+
+        //Then
+        XCTAssertTrue(isValidName, "The isFirstNameValid() should return TRUE when name has \(SignUpConstants.lastNameMinLength) chars")
+    }
+
+    func testWhen10CharsLastNameProvided_ShouldReturnTrue() {
+        //Given
+        let lastNameWith10Chars = "NataliaSapucaia"
+
+        //When
+        let isValidName = sut.isLastNameValid(lastName: lastNameWith10Chars)
+
+        //Then
+        XCTAssertTrue(isValidName, "The isFirstNameValid() should return TRUE when name has \(SignUpConstants.lastNameMaxLength) chars")
+    }
+
+    func testWhenTooShortLastNameProvided_ShouldReturnFalse() {
+        //Given
+        let tooShortName = "A"
+
+        //When
+        let isFirstNameValid = sut.isLastNameValid(lastName: tooShortName)
+
+        //Then
+        XCTAssertFalse(isFirstNameValid, "The isFirstNameValid() should return FALSE when the name is shorter than \(SignUpConstants.lastNameMinLength) chars")
+    }
+
+    func testWhenTooLongLastNameProvided_ShouldReturnFalse() {
+        //Given
+        let tooLongName = "NataliaNataliaNatalia"
+
+        //When
+        let isFirstNameValid = sut.isLastNameValid(lastName: tooLongName)
+
+        //Then
+        XCTAssertFalse(isFirstNameValid, "The isFirstNameValid() should return FALSE when the name is longer than \(SignUpConstants.lastNameMaxLength) chars")
+    }
 }
