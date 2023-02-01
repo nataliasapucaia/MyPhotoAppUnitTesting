@@ -42,4 +42,8 @@ class SingUpFormModelValidator {
 
         return isValidPassword
     }
+
+    func arePasswordsEqual(password: String, repeatPassword: String) -> Bool {
+        return password == repeatPassword
+    }
 }

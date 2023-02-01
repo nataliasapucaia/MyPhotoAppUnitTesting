@@ -213,4 +213,30 @@ class SignUpFormModelValidatorTests: XCTestCase {
         //Then
         XCTAssertFalse(isValidPassword, "The isValidPassword should return FALSE")
     }
+
+    // MARK: Equal Passwords Tests
+
+    func testWhenEqualPasswordsProvided_ShouldReturnTrue() {
+        //Given
+        let password = "12345678"
+        let repeatPassword = "12345678"
+
+        //When
+        let areEqualPasswords = sut.arePasswordsEqual(password: password, repeatPassword: repeatPassword)
+
+        //Then
+        XCTAssertTrue(areEqualPasswords, "The areEqualPassword should return FALSE")
+    }
+
+    func testWhenDifferentPasswordsProvided_ShouldReturnTrue() {
+        //Given
+        let password = "12345678"
+        let repeatPassword = "1234567"
+
+        //When
+        let areEqualPasswords = sut.arePasswordsEqual(password: password, repeatPassword: repeatPassword)
+
+        //Then
+        XCTAssertFalse(areEqualPasswords, "The areEqualPassword should return FALSE")
+    }
 }
